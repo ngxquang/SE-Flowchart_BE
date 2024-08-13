@@ -1,6 +1,6 @@
 // @typescript-eslint/no-unused-vars: Bật cảnh báo khi có biến không được sử dụng
 // Tuy nhiên, biến bắt đầu bằng "_" sẽ không bị cảnh báo
-function exampleFunction(unusedParam: string, usedParam: number) {
+function exampleFunction(_unusedParam: string, usedParam: number) {
   console.log(usedParam);
 }
 
