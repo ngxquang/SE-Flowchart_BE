@@ -1,6 +1,7 @@
-import { Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Lesson } from './lesson.entity';
 
+@Entity()
 export class LessonType {
   @PrimaryGeneratedColumn()
   id: number;

@@ -2,13 +2,15 @@ import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
+  Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Topic } from './topic.entity';
-import { LessonType } from './lesson_type';
+import { LessonType } from './lesson_type.entity';
 
+@Entity()
 export class Lesson {
   @PrimaryGeneratedColumn()
   id: number;

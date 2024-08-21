@@ -1,6 +1,6 @@
-import { Column, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Group } from './group.entity';
-
+@Entity()
 export class Role {
   @PrimaryGeneratedColumn()
   id: number;

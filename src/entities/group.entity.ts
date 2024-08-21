@@ -1,5 +1,6 @@
 import {
   Column,
+  Entity,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -8,6 +9,7 @@ import {
 import { User } from './user.entity';
 import { Role } from './role.entity';
 
+@Entity()
 export class Group {
   @PrimaryGeneratedColumn()
   id: number;
