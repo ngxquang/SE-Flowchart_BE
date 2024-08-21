@@ -1,5 +1,6 @@
 import {
   Column,
+  Entity,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -8,6 +9,7 @@ import {
 import { User } from './user.entity';
 import { Role } from './role.entity';
 
+@Entity()
 export class Group {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,7 +20,7 @@ export class Group {
   @OneToMany(() => User, (user) => user.group)
   users: User[];
 
-  @ManyToMany(() => Role, (role) => role.groups)
-  @JoinTable({ name: 'Role_Group' })
-  roles: Role[];
+  // @ManyToMany(() => Role, (role) => role.groups)
+  // @JoinTable({ name: 'Role_Group' })
+  // roles: Role[];
 }

@@ -1,5 +1,6 @@
 import {
   Column,
+  Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -8,6 +9,7 @@ import {
 import { Repo } from './repo.entity';
 import { Lesson } from './lesson.entity';
 
+@Entity()
 export class Topic {
   @PrimaryGeneratedColumn()
   id: number;

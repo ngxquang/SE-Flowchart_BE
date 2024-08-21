@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
+  Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -10,6 +11,7 @@ import {
 import { Group } from './group.entity';
 import { Repo } from './repo.entity';
 
+@Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

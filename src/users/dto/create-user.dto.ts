@@ -50,5 +50,5 @@ export class CreateUserDto {
   readonly email: string;
 
   @IsOptional()
-  readonly group?: number;
+  readonly groupId?: number;
 }
