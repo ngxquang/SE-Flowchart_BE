@@ -3,6 +3,7 @@ import { User } from 'src/entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -11,16 +12,39 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new User';
+    const newUser = this.userRepository.create(createUserDto);
+    return this.userRepository.save(newUser);
   }
 
   findAll() {
-    return `This action returns all Users`;
+    return this.userRepository.find();
   }
 
-  findOne(username: string) {
-    return this.userRepository.findOne({
-      where: { username },
-    });
+  findOne(identifier: string | number) {
+    if (typeof identifier === 'string') {
+      return this.userRepository.findOne({
+        where: { username: identifier },
+      });
+    } else if (typeof identifier === 'number') {
+      return this.userRepository.findOne({
+        where: { id: identifier },
+      });
+    }
+  }
+
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.findOne(id);
+    if (user) {
+      Object.assign(user, updateUserDto);
+      return this.userRepository.save(user);
+    }
+    return null;
+  }
+
+  async remove(id: number) {
+    const user = await this.findOne(id);
+    if (user) {
+      return this.userRepository.remove(user);
+    }
   }
 }

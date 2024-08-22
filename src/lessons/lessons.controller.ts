@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { LessonsService } from './lessons.service';
 import { CreateLessonDto } from './dto/create-lesson.dto';
@@ -16,7 +18,7 @@ export class LessonsController {
   constructor(private readonly lessonsService: LessonsService) {}
 
   @Post()
-  create(@Body() createLessonDto: CreateLessonDto) {
+  create(@Body(ValidationPipe) createLessonDto: CreateLessonDto) {
     return this.lessonsService.create(createLessonDto);
   }
 
@@ -26,17 +28,20 @@ export class LessonsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lessonsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.lessonsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLessonDto: UpdateLessonDto) {
-    return this.lessonsService.update(+id, updateLessonDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(ValidationPipe) updateLessonDto: UpdateLessonDto,
+  ) {
+    return this.lessonsService.update(id, updateLessonDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.lessonsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.lessonsService.remove(id);
   }
 }

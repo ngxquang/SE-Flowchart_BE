@@ -20,7 +20,11 @@ export class Group {
   @OneToMany(() => User, (user) => user.group)
   users: User[];
 
-  // @ManyToMany(() => Role, (role) => role.groups)
-  // @JoinTable({ name: 'Role_Group' })
-  // roles: Role[];
+  @ManyToMany(() => Role, (role) => role.groups)
+  @JoinTable({
+    name: 'role_group',
+    joinColumn: { name: 'groupId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'roleId', referencedColumnName: 'id' },
+  })
+  roles: Role[];
 }

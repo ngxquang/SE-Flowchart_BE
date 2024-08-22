@@ -12,6 +12,6 @@ export class Role {
   @Column({ length: 45 })
   description: string;
 
-  // @ManyToMany(() => Group, (group) => group.roles)
-  // groups: Group[];
+  @ManyToMany(() => Group, (group) => group.roles)
+  groups: Group[];
 }

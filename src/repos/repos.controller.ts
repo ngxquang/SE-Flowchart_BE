@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ReposService } from './repos.service';
 import { CreateRepoDto } from './dto/create-repo.dto';
@@ -16,7 +18,7 @@ export class ReposController {
   constructor(private readonly reposService: ReposService) {}
 
   @Post()
-  create(@Body() createRepoDto: CreateRepoDto) {
+  create(@Body(ValidationPipe) createRepoDto: CreateRepoDto) {
     return this.reposService.create(createRepoDto);
   }
 
@@ -26,17 +28,20 @@ export class ReposController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reposService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.reposService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRepoDto: UpdateRepoDto) {
-    return this.reposService.update(+id, updateRepoDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(ValidationPipe) updateRepoDto: UpdateRepoDto,
+  ) {
+    return this.reposService.update(id, updateRepoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.reposService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.reposService.remove(id);
   }
 }
