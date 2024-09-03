@@ -17,10 +17,14 @@ export class Group {
   @Column({ length: 45 })
   name: string;
 
-  @OneToMany(() => User, (user) => user.group)
+  @OneToMany(() => User, (user) => user.group, { cascade: true, createForeignKeyConstraints: false })
   users: User[];
 
-  // @ManyToMany(() => Role, (role) => role.groups)
-  // @JoinTable({ name: 'Role_Group' })
-  // roles: Role[];
+  @ManyToMany(() => Role, (role) => role.groups, { cascade: true, createForeignKeyConstraints: false })
+  @JoinTable({
+    name: 'role_group',
+    joinColumn: { name: 'groupId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'roleId', referencedColumnName: 'id' },
+  })
+  roles: Role[];
 }

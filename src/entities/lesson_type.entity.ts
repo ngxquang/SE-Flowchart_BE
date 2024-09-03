@@ -9,6 +9,6 @@ export class LessonType {
   @Column({ length: 100 })
   name: string;
 
-  @OneToMany(() => Lesson, (lesson) => lesson.lessonType)
+  @OneToMany(() => Lesson, (lesson) => lesson.lessonType, { createForeignKeyConstraints: false })
   lessons: Lesson[];
 }

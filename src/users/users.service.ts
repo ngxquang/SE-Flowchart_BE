@@ -11,11 +11,11 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new User';
+    return 'This action adds a User';
   }
 
   findAll() {
-    return `This action returns all Users`;
+    return this.userRepository.find();
   }
 
   findOne(username: string) {

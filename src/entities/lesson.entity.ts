@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Topic } from './topic.entity';
 import { LessonType } from './lesson_type.entity';
+import { LessonGroup } from './lesson_group.entity';
 
 @Entity()
 export class Lesson {
@@ -18,16 +19,16 @@ export class Lesson {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   image: string;
 
   @Column({ length: 1 })
   status: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   urlMd: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   flowChart: string;
 
   @Column({ length: 1 })
@@ -39,11 +40,11 @@ export class Lesson {
   @DeleteDateColumn()
   deleteAt: Date;
 
-  @ManyToOne(() => Topic, (topic) => topic.lessons)
+  @ManyToOne(() => LessonGroup, (lessonGroup) => lessonGroup.lessons, { createForeignKeyConstraints: false })
   @JoinColumn()
-  topic: Topic;
+  lessonGroup: LessonGroup;
 
-  @ManyToOne(() => LessonType, (lessonType) => lessonType.lessons)
+  @ManyToOne(() => LessonType, (lessonType) => lessonType.lessons, { createForeignKeyConstraints: false })
   @JoinColumn()
   lessonType: LessonType;
 }

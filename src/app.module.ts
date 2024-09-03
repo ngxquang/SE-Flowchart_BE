@@ -19,6 +19,8 @@ import { Topic } from './entities/topic.entity';
 import { Repo } from './entities/repo.entity';
 import { Role } from './entities/role.entity';
 import { Parameter } from './entities/parameter.entity';
+import { LessonGroup } from './entities/lesson_group.entity';
+import { LessonGroupsModule } from './lesson_groups/lesson_groups.module';
 
 @Module({
   imports: [
@@ -32,6 +34,7 @@ import { Parameter } from './entities/parameter.entity';
       Repo,
       Role,
       Parameter,
+      LessonGroup,
     ]),
     UsersModule,
     AuthModule,
@@ -47,6 +50,7 @@ import { Parameter } from './entities/parameter.entity';
     LessonsModule,
     LessonTypesModule,
     GroupsModule,
+    LessonGroupsModule
   ],
   controllers: [AppController],
   providers: [AppService],

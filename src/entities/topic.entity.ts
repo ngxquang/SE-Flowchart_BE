@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Repo } from './repo.entity';
 import { Lesson } from './lesson.entity';
+import { LessonGroup } from './lesson_group.entity';
 
 @Entity()
 export class Topic {
@@ -17,10 +18,10 @@ export class Topic {
   @Column()
   name: string;
 
-  @ManyToOne(() => Repo, (repo) => repo.topics)
+  @ManyToOne(() => Repo, (repo) => repo.topics, { createForeignKeyConstraints: false })
   @JoinColumn()
   repo: Repo;
 
-  @OneToMany(() => Lesson, (lesson) => lesson.topic)
-  lessons: Lesson[];
+  @OneToMany(() => LessonGroup, (lessonGroup) => lessonGroup.topic, { cascade: true, createForeignKeyConstraints: false })
+  lessonGroups: LessonGroup[];
 }
