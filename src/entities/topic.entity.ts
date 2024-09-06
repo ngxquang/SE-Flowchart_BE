@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Repo } from './repo.entity';
 import { Lesson } from './lesson.entity';
+import { LessonGroup } from './lesson_group.entity';
 
 @Entity()
 export class Topic {
@@ -21,6 +22,6 @@ export class Topic {
   @JoinColumn()
   repo: Repo;
 
-  @OneToMany(() => Lesson, (lesson) => lesson.topic)
-  lessons: Lesson[];
+  @OneToMany(() => LessonGroup, (lessonGroup) => lessonGroup.topic)
+  lessonGroups: LessonGroup[];
 }

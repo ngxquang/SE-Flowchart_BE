@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Topic } from './topic.entity';
 import { LessonType } from './lesson_type.entity';
+import { LessonGroup } from './lesson_group.entity';
 
 @Entity()
 export class Lesson {
@@ -39,9 +40,9 @@ export class Lesson {
   @DeleteDateColumn()
   deleteAt: Date;
 
-  @ManyToOne(() => Topic, (topic) => topic.lessons)
+  @ManyToOne(() => LessonGroup, (lessonGroup) => lessonGroup.lessons)
   @JoinColumn()
-  topic: Topic;
+  lessonGroup: LessonGroup;
 
   @ManyToOne(() => LessonType, (lessonType) => lessonType.lessons)
   @JoinColumn()

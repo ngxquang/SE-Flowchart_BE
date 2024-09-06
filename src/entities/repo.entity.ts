@@ -20,7 +20,7 @@ export class Repo {
 
   @ManyToOne(() => User, (user) => user.repos)
   @JoinColumn()
-  user: number;
+  user: User;
 
   @OneToMany(() => Topic, (topic) => topic.repo)
   topics: Topic[];
