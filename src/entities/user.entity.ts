@@ -31,7 +31,7 @@ export class User {
   @Column({ length: 1 })
   sex: string;
 
-  @Column({ length: 11, unique: true })
+  @Column({ length: 10, unique: true })
   phone: string;
 
   @Column()
@@ -51,7 +51,7 @@ export class User {
 
   @ManyToOne(() => Group, (group) => group.users)
   @JoinColumn()
-  group: number;
+  group: Group;
 
   @OneToMany(() => Repo, (repo) => repo.user)
   repos: Repo[];
