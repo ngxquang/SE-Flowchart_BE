@@ -12,6 +12,8 @@ export class Role {
   @Column({ length: 45 })
   description: string;
 
-  @ManyToMany(() => Group, (group) => group.roles)
+  @ManyToMany(() => Group, (group) => group.roles, {
+    createForeignKeyConstraints: false,
+  })
   groups: Group[];
 }

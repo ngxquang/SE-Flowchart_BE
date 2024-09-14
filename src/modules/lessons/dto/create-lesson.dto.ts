@@ -12,11 +12,9 @@ export class CreateLessonDto {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
   @IsString()
   image: string;
 
-  @IsNotEmpty()
   @IsString()
   @IsIn(['0', '1'])
   status: string;

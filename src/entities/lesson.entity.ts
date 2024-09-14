@@ -7,7 +7,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Topic } from './topic.entity';
 import { LessonType } from './lesson_type.entity';
 import { LessonGroup } from './lesson_group.entity';
 
@@ -19,16 +18,16 @@ export class Lesson {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   image: string;
 
   @Column({ length: 1 })
   status: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   urlMd: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   flowChart: string;
 
   @Column({ length: 1 })
@@ -40,11 +39,15 @@ export class Lesson {
   @DeleteDateColumn()
   deleteAt: Date;
 
-  @ManyToOne(() => LessonGroup, (lessonGroup) => lessonGroup.lessons)
+  @ManyToOne(() => LessonGroup, (lessonGroup) => lessonGroup.lessons, {
+    createForeignKeyConstraints: false,
+  })
   @JoinColumn()
   lessonGroup: LessonGroup;
 
-  @ManyToOne(() => LessonType, (lessonType) => lessonType.lessons)
+  @ManyToOne(() => LessonType, (lessonType) => lessonType.lessons, {
+    createForeignKeyConstraints: false,
+  })
   @JoinColumn()
   lessonType: LessonType;
 }

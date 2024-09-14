@@ -49,10 +49,10 @@ export class User {
   @DeleteDateColumn()
   deleteAt: Date;
 
-  @ManyToOne(() => Group, (group) => group.users)
+  @ManyToOne(() => Group, (group) => group.users, { createForeignKeyConstraints: false })
   @JoinColumn()
   group: Group;
 
-  @OneToMany(() => Repo, (repo) => repo.user)
+  @OneToMany(() => Repo, (repo) => repo.user, { cascade: true, createForeignKeyConstraints: false })
   repos: Repo[];
 }
