@@ -18,10 +18,10 @@ export class Repo {
   @Column()
   name: string;
 
-  @ManyToOne(() => User, (user) => user.repos)
+  @ManyToOne(() => User, (user) => user.repos, { createForeignKeyConstraints: false })
   @JoinColumn()
   user: User;
 
-  @OneToMany(() => Topic, (topic) => topic.repo)
+  @OneToMany(() => Topic, (topic) => topic.repo, { cascade: true, createForeignKeyConstraints: false })
   topics: Topic[];
 }

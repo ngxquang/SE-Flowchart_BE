@@ -17,7 +17,10 @@ export class Group {
   @Column({ length: 45 })
   name: string;
 
-  @OneToMany(() => User, (user) => user.group)
+  @OneToMany(() => User, (user) => user.group, {
+    cascade: true,
+    createForeignKeyConstraints: false,
+  })
   users: User[];
 
   @ManyToMany(() => Role, (role) => role.groups)

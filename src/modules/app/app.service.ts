@@ -1,54 +1,50 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/entities/user.entity';
+import { Repository, DataSource } from 'typeorm';
+import { Group } from 'src/entities/group.entity';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 @Injectable()
-export class AppService {
-  constructor() {}
+export class AppService implements OnModuleInit {
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Group) private groupRepository: Repository<Group>,
+    private dataSource: DataSource,
+  ) {}
 
-  // async onModuleInit() {
-  //   await this.seed();
-  // }
+  async onModuleInit() {
+    const queryRunner = this.dataSource.createQueryRunner('master');
+    await queryRunner.connect();
 
-  // async seed() {
-  //   const group = this.groupRepository.create({
-  //     id: 1,
-  //     name: 'Admin',
-  //   });
+    try {
+      const result = await queryRunner.query(
+        `SELECT COUNT(*) as count FROM user`,
+      );
 
-  //   const user1 = this.userRepository.create({
-  //     id: 1,
-  //     name: 'Marius',
-  //     username: 'marius',
-  //     password: 'sosecure',
-  //     status: '1',
-  //     sex: '1',
-  //     phone: '0345979436',
-  //     address: 'New York',
-  //     birthDate: new Date('3/3/1999'),
-  //     email: 'marius@gm.com',
-  //     createdAt: new Date('3/3/2022'),
-  //     deleteAt: null,
-  //   });
-  //   await this.userRepository.save(user1);
+      console.log('Check du lieu', result);
+      const count = parseInt(result[0].count, 10);
 
-  //   const user2 = this.userRepository.create({
-  //     id: 2,
-  //     name: 'Mambo',
-  //     username: 'mambo',
-  //     password: 'dumbo',
-  //     status: '1',
-  //     sex: '1',
-  //     phone: '0333353609',
-  //     address: 'London',
-  //     birthDate: new Date('2/6/2002'),
-  //     email: 'mambo@gm.com',
-  //     createdAt: new Date('2/6/2006'),
-  //     deleteAt: null,
-  //   });
-  //   await this.userRepository.save(user2);
+      if (count === 0) {
+        console.log('result[0].count: ', count);
+        console.log('Bang chua co du lieu tien hanh insert du lieu moi: ');
+        const sql = readFileSync(
+          join('/src/app/src', 'dump', 'dump.sql'),
+          'utf8',
+        );
+        const statements = sql.split(';').filter((stmt) => stmt.trim() !== '');
 
-  //   group.users = [user1, user2];
-  //   await this.groupRepository.save(group);
-  // }
+        for (const statement of statements) {
+          await queryRunner.query(statement);
+        }
+      }
+    } catch (error) {
+      console.error('Error executing seed SQL:', error);
+    } finally {
+      await queryRunner.release();
+    }
+  }
 
   getHello(): string {
     return 'Hello World!';
