@@ -48,12 +48,12 @@ INSERT INTO `lesson_group` (id, name, topicId) VALUES
 # 1 là lý thuyết 
 # 2 là bài tập
 delete from `lesson`;
-INSERT INTO `lesson` (description, image, status, urlMd, flowChart, statusFlowChart, lessonGroupId, lessonTypeId) VALUES 
-('Lịch sử', null, '1', '/lessons/lesson1.md', null, '0', 1, 1),
-('Bắt đầu - Start', null, '1', '/lessons/lesson2.md', null, '0', 2, 1),
-('Kết thúc - End', null, '1', '/lessons/lesson1.md', null, '0', 2, 1),
-('Bài 001: Vẽ lưu đồ nhập tọa độ hai điểm (x1, y1) và (x2, y2). Tính khoảng cách giữa chúng và xuất kết quả', '/images/lesson1.jpg', '1', null, '/flowcharts/lesson1.json', '1', 5, 2),
-('Bài 012: Vẽ lưu đồ tính x^6 với 3 phép nhân', '/images/lesson2.jpg', '1', null, '/flowcharts/lesson2.json', '1', 6, 2);
+INSERT INTO `lesson` (description, image, status, urlMd, flowChart, statusFlowChart, lessonGroupId, lessonTypeId, lessonName) VALUES 
+('Lịch sử', null, '1', '/lessons/lesson1.md', null, '0', 1, 1, 'Bài cơ sở 000'),
+('Bắt đầu - Start', null, '1', '/lessons/lesson2.md', null, '0', 2, 1, 'Bài cơ sở 001'),
+('Kết thúc - End', null, '1', '/lessons/lesson1.md', null, '0', 2, 1, 'Bài cơ sở 002'),
+('Vẽ lưu đồ nhập tọa độ hai điểm (x1, y1) và (x2, y2). Tính khoảng cách giữa chúng và xuất kết quả', '/images/lesson1.jpg', '1', null, '/flowcharts/lesson1.json', '1', 5, 2, 'Bài 001'),
+('Vẽ lưu đồ tính x^6 với 3 phép nhân', '/images/lesson2.jpg', '1', null, '/flowcharts/lesson2.json', '1', 6, 2, 'Bài 012');
 
 -- Dạng bài lý thuyết (Mã dạng bài 1) có trường thông tin HinhAnh, LuuDo, TrangThaiLuuDo là NULL
 -- Dạng bài bài tập (Mã dạng bài 2) có trường thông tin UrlMD (link dẫn tới markdown của lý thuyết) là NULL

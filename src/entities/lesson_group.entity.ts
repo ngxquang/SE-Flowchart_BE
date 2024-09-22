@@ -17,10 +17,10 @@ export class LessonGroup {
   @Column({ length: 100 })
   name: string;
 
-  @ManyToOne(() => Topic, (topic) => topic.lessonGroups)
+  @ManyToOne(() => Topic, (topic) => topic.lessonGroups, { createForeignKeyConstraints: false })
   @JoinColumn()
   topic: Topic;
 
-  @OneToMany(() => Lesson, (lesson) => lesson.lessonGroup)
+  @OneToMany(() => Lesson, (lesson) => lesson.lessonGroup,  { createForeignKeyConstraints: false })
   lessons: Lesson[];
 }
