@@ -155,6 +155,35 @@ export class LessonsService {
     }
   }
 
+  async findOneByLessonName(lessonName: string, lessonTypeId: Number) {
+    try {
+      const lesson = await this.lessonsRepository
+      .createQueryBuilder('lesson')
+      .leftJoinAndSelect('lesson.lessonGroup', 'lessonGroup')
+      .leftJoinAndSelect('lesson.lessonType', 'lessonType')
+      .where('lesson.lessonName = :lessonName', { lessonName })
+      .andWhere('lessonType.id = :lessonTypeId', { lessonTypeId })
+      .getOne();
+
+      if (!lesson) {
+        throw new NotFoundException('Bài học không tồn tại');
+      }
+
+      return {
+        message: 'Tìm thấy bài học theo tên bài học và loại bài học',
+        statusCode: 200,
+        data: lesson,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      } else
+        throw new InternalServerErrorException(
+          'Có lỗi xảy ra trong quá trình tìm kiếm bài học',
+        );
+    }
+  }
+
   async update(id: number, updateLessonDto: UpdateLessonDto) {
     try {
       const lesson = (await this.findOne(id)).data;

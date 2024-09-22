@@ -24,6 +24,14 @@ export class LessonsController {
   }
 
   @Get()
+  findOneByLessonName(
+    @Query('lessonName') lessonName: string,
+    @Query('lessonTypeId', ParseIntPipe) lessonTypeId: number
+  ) {
+    return this.lessonsService.findOneByLessonName(lessonName, lessonTypeId);
+  }
+
+  @Get()
   findAll(
     @Query('lessonGroupId') lessonGroupId?: number,
     @Query('lessonTypeId') lessonTypeId?: number,
