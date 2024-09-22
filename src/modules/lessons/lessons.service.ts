@@ -47,6 +47,7 @@ export class LessonsService {
         statusCode: 200,
         data: {
           id: savedLesson.id,
+          // lessonName: savedLesson.lessonName,
           description: savedLesson.description,
           image: savedLesson.image,
           status: savedLesson.status,

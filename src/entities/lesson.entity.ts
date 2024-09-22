@@ -16,6 +16,9 @@ export class Lesson {
   id: number;
 
   @Column({ type: 'text' })
+  lessonName: string;
+
+  @Column({ type: 'text' })
   description: string;
 
   @Column({ type: 'text', nullable: true })

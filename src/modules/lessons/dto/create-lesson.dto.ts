@@ -8,6 +8,11 @@ import {
 } from 'class-validator';
 
 export class CreateLessonDto {
+
+  @IsNotEmpty()
+  @IsString()
+  lessonName: string;
+
   @IsNotEmpty()
   @IsString()
   description: string;
