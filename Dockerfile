@@ -1,3 +1,7 @@
+#################
+## DEVELOPMENT ##
+#################
+
 FROM node:18-alpine AS development
 
 WORKDIR /src/app
@@ -7,10 +11,6 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-COPY ./wait-for-it.sh /src/app/wait-for-it.sh
-
-RUN chmod +x /src/app/wait-for-it.sh
 
 RUN npm run build
 
@@ -28,4 +28,4 @@ COPY --from=development /src/app/ .
 
 EXPOSE 3001
 
-CMD [ "node" , "dist/main" ]
+CMD [ "node" , "dist/src/main" ]
